@@ -1,0 +1,93 @@
+1. INN ER JOIN: Retrieve all orders and customer details where orders exist.
+Ans: SELECT Orders.*, Customers.FirstName, Customers.LastName, Customers.Email
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+
+2. LEFT JOIN: Retrieve all customers and their corresponding orders (if any).
+Ans: SELECT Customers.*, Orders.OrderID, Orders.OrderDate, Orders.TotalAmount
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+
+3. RIGHT JOIN: Retrieve all orders and their corresponding customers (if any).
+Ans: SELECT Orders.*, Customers.FirstName, Customers.LastName
+FROM Orders
+RIGHT JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+
+4. FULL OUTER JOIN: Retrieve all customers and all orders, regardless of matching.
+Ans: SELECT Customers.*, Orders.OrderID, Orders.OrderDate, Orders.TotalAmount
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+UNION
+SELECT Customers.*, Orders.OrderID, Orders.OrderDate, Orders.TotalAmount
+FROM Customers
+RIGHT JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+
+5. Subquery to find customers who have placed orders worth more than the average amount.
+Ans: SELECT * FROM Customers
+WHERE CustomerID IN (
+    SELECT CustomerID
+    FROM Orders
+    GROUP BY CustomerID
+    HAVING SUM(TotalAmount) > (SELECT AVG(TotalAmount) FROM Orders)
+);
+
+6. Subquery to find employees with salaries above the average salary.
+Ans: SELECT * FROM Employees
+WHERE Salary > (SELECT AVG(Salary) FROM Employees);
+
+7. Extract the year and month from the OrderDate.
+Ans: SELECT OrderID, YEAR(OrderDate) AS OrderYear, MONTH(OrderDate) AS OrderMonth
+FROM Orders;
+
+8. Calculate the difference in days between two dates (order date and current date).
+Ans: SELECT OrderID, DATEDIFF(CURDATE(), OrderDate) AS DaysAgo
+FROM Orders;
+
+9. Format the OrderDate to a more readable format (e.g., 'DD-MMM-YYYY').
+Ans: SELECT OrderID, DATE_FORMAT(OrderDate,'%d-%b-%Y') AS FormattedDate
+FROM Orders;
+
+10. Concatenate FirstName and LastName to form a full name.
+Ans: SELECT CONCAT(FirstName, ' ', LastName) AS FullName
+FROM Customers;
+
+11. Replace part of a string (e.g., replace 'John' with 'Jonathan').
+Ans: SELECT REPLACE(FirstName,'John','Jonathan') AS ReplacedName
+FROM Customers;
+
+12. Convert FirstName to uppercase and LastName to lowercase.
+Ans: SELECT UPPER(FirstName) AS UpperName, LOWER(LastName) AS LowerName
+FROM Customers;
+
+13. Trim extra spaces from the Email field.
+Ans: SELECT TRIM(Email) AS CleanEmail
+FROM Customers;
+
+14. Calculate the running total of TotalAmount for each order.
+Ans: SELECT OrderID, TotalAmount,
+       SUM(TotalAmount) OVER (ORDER BY OrderID
+       ROWS UNBOUNDED PRECEDING) AS RunningTotal
+FROM Orders;
+
+15. Rank orders based on TotalAmount using the RANK() function.
+Ans: SELECT OrderID, TotalAmount,
+       RANK() OVER (ORDER BY TotalAmount DESC) AS RankPosition
+FROM Orders;
+
+16. Assign a discount based on TotalAmount in orders (e.g., > 1000: 10% off, > 500: 5% off).
+Ans: SELECT OrderID, TotalAmount,
+       CASE
+           WHEN TotalAmount > 1000 THEN '10% OFF'
+           WHEN TotalAmount > 500 THEN '5% OFF'
+           ELSE 'NO DISCOUNT'
+       END AS Discount
+FROM Orders;
+
+17. Categorize employees’ salaries as high, medium, or low.
+Ans: SELECT EmployeeID, Salary,
+       CASE
+           WHEN Salary > 60000 THEN 'HIGH'
+           WHEN Salary >= 40000 THEN 'MEDIUM'
+           ELSE 'LOW'
+       END AS SalaryCategory
+FROM Employees;
