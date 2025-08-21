@@ -37,3 +37,9 @@ The project simulates a **Corporate Data Analysis System** and allows students t
 
 ✅ The SQL queries are kept in a separate **data_transformer_queries.txt** file  
 ✅ You can upload both files directly to your Git repository
+
+
+![pr3](https://github.com/user-attachments/assets/05b09b28-a67e-45b8-9fef-f0be0f838d31)
+![pr2](https://github.com/user-attachments/assets/200f178c-1414-4fc5-b364-c35e900e88bc)
+![pr1](https://github.com/user-attachments/assets/8c69bfc6-a6ff-488d-96fa-2ad277c6bdcd)
+![pr4](https://github.com/user-attachments/assets/dd6a16f0-1ae4-4776-b475-4144665d4180)
